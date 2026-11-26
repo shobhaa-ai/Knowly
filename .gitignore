@@ -7,3 +7,9 @@ __pycache__/
 *.db
 storage/chroma/
 data/processed/
+
+# Uploaded company documents
+data/raw/
+
+# Processed document output
+data/processed/
