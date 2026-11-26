@@ -1,3 +1,5 @@
+from sqlalchemy import event
+
 
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -21,6 +23,17 @@ AsyncSessionLocal = async_sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,
 )
+
+@event.listens_for(engine.sync_engine, "connect")
+def enable_sqlite_foreign_keys(
+    dbapi_connection,
+    connection_record,
+):
+    cursor = dbapi_connection.cursor()
+
+    cursor.execute("PRAGMA foreign_keys=ON")
+
+    cursor.close()
 
 
 # Dependency for providing database sessions

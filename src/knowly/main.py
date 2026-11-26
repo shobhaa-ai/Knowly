@@ -7,6 +7,8 @@ from fastapi import FastAPI
 from src.knowly.api.routes.health import router as health_router
 from src.knowly.core.config import settings
 from src.knowly.db.session import engine
+from src.knowly.db.init_db import init_db
+
 
 
 @asynccontextmanager
@@ -19,11 +21,9 @@ async def lifespan(app: FastAPI):
     )
 
     # Verify database connectivity during startup
-    async with engine.connect() as connection:
-        from sqlalchemy import text
+    await init_db()
 
-        await connection.execute(text("SELECT 1"))
-
+    print("Database initialized successfully.")
     print("Knowly application started successfully.")
 
     yield
