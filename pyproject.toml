@@ -9,6 +9,7 @@ dependencies = [
     "beautifulsoup4>=4.15.0",
     "chromadb>=1.5.9",
     "fastapi>=0.165.0",
+    "greenlet>=3.5.6",
     "langchain>=1.5.2",
     "langchain-community>=0.4.2",
     "langchain-groq>=1.2.1",

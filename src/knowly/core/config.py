@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     APP_ENV: str = "development"
     DEBUG: bool = True
 
-    GROQ_API_KEY: str
+    GROQ_API_KEY: str | None = None
 
     DATABASE_URL: str = (
         "sqlite+aiosqlite:///./storage/knowly.db"
