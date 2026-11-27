@@ -34,7 +34,7 @@ async def main():
                 result = await chunk_document(
                     document_id=document.id,
                     db=db,
-                    strategy="recursive",
+                    strategy="semantic",
                     config=ChunkingConfig(
                         chunk_size=500,
                         chunk_overlap=100,

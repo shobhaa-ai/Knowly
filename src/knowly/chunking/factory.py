@@ -2,6 +2,7 @@ from src.knowly.chunking.base import BaseChunker
 from src.knowly.chunking.config import ChunkingConfig
 from src.knowly.chunking.strategies.fixed import FixedSizeChunker
 from src.knowly.chunking.strategies.recursive import RecursiveChunker
+from src.knowly.chunking.strategies.semantic import SemanticChunker
 
 
 class ChunkerFactory:
@@ -9,6 +10,7 @@ class ChunkerFactory:
     _strategies = {
         "fixed": FixedSizeChunker,
         "recursive": RecursiveChunker,
+        "semantic": SemanticChunker,
     }
 
     @classmethod

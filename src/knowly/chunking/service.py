@@ -8,6 +8,7 @@ from src.knowly.chunking.config import ChunkingConfig
 from src.knowly.chunking.factory import ChunkerFactory
 from src.knowly.db.models import Document as DocumentModel
 from src.knowly.db.repositories.chunk import replace_document_chunks
+import asyncio
 
 
 PROCESSED_DIR = Path("data/processed")
@@ -60,7 +61,10 @@ async def chunk_document(
             config=config,
         )
 
-        chunks = chunker.chunk(documents)
+        chunks = await asyncio.to_thread(
+            chunker.chunk,
+            documents,
+        )
 
         if not chunks:
             raise ValueError("Chunking produced no results.")

@@ -21,6 +21,7 @@ def main():
     config = ChunkingConfig(
         chunk_size=500,
         chunk_overlap=100,
+        similarity_threshold=0.55,
     )
 
     for file_path in files:
@@ -37,7 +38,7 @@ def main():
 
         print(f"\nDocument: {file_path.name}")
 
-        for strategy in ["fixed", "recursive"]:
+        for strategy in ["fixed", "recursive", "semantic"]:
 
             chunker = ChunkerFactory.get_chunker(
                 strategy=strategy,
