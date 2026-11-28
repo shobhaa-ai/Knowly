@@ -9,3 +9,10 @@ class BaseEmbeddingProvider(ABC):
         texts: list[str],
     ):
         pass
+
+    @abstractmethod
+    def embed_query(
+        self,
+        text: str,
+    ) -> list[float]:
+        pass

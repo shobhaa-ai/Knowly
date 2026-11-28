@@ -12,6 +12,8 @@ scripts - this has testing scripts for testing different functionalities
     1. ingest_samples.py - script to test ingesting files of different formats 
         what it does? - take files from sample directory and call ingest_file service to ingest the file
     2. verify_db.py - call init_db() and connect with the engine to check if the tables are created.
+    3. chunk_document.py - test the chunk_document service
+    4. test_chunking.py - test the chunker.chunk function
 src\knowly
     1. api
         1. routes 
@@ -27,6 +29,8 @@ src\knowly
         4. models.py - contains all the ORM models defined as class in python that inherits the base class and will be used to create tables in db
         5. session.py - creates db engine, session factory and a dependency that provides session, also a listener event function that helps to explicitly implement foreign keys as it is not by default by the sqllite
     4. embeddings
+        1. base.py - base class to be inhereted by any embedding model
+        2. sentence_transformer.py - embed documents using sentence transformer model
     5. evaluation
     6. generation
     7. ingestion
@@ -41,7 +45,15 @@ src\knowly
         5. service.py - it contains function to ingest file - it creates hash of the file, check for duplicacy, finds the correct loader using get_loader, load the document, normalizes the content, save the raw and processed data and create document record in db.
     8. retrieval
     9. main.py - initialize the fastapi app , lifespan and include routers.
-    10. chunking - 
+    10. chunking - performs the chunking process
+        1. strategies
+            1. fixed.py - performs fixed chunking
+            2. recursive.py - performs recursive chunking
+            3. semantic.py - performs sementic chunking
+        2. base.py - base interface that makes a contract for all the chunking strategies to implement function chunk
+        3. config.py - it has all the chunking configurations which are used for different chunking strategies including chunk size, chunk overlap, etc.
+        4. factory.py - it returns the correct chunker class as per the strategy used
+        5. service.py - it implements the chunk_document function irrespective of the chunking strategy used.
         
 storage - 
     1. knowly.db - sqllite db

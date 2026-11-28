@@ -1,7 +1,12 @@
 from sentence_transformers import SentenceTransformer
 
 from src.knowly.embeddings.base import BaseEmbeddingProvider
+from functools import lru_cache
 
+
+@lru_cache(maxsize=1)
+def get_embedding_provider():
+    return SentenceTransformerProvider()
 
 class SentenceTransformerProvider(BaseEmbeddingProvider):
 
@@ -25,3 +30,16 @@ class SentenceTransformerProvider(BaseEmbeddingProvider):
             convert_to_numpy=True,
             show_progress_bar=False,
         )
+
+    def embed_query(
+        self,
+        text: str,
+    ) -> list[float]:
+
+        embedding = self.model.encode(
+            text,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+        )
+
+        return embedding.tolist()
